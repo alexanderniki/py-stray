@@ -8,7 +8,7 @@ A simple tool to pick a random (stray) line of a text.
 
 Clone stray's repository or download repository's contents into some local directory.
 
-Add stray to your conky.conf
+run stray.py
 
 ## Using stray
 
@@ -34,7 +34,7 @@ Options:
 - -w --width Wrap text to N characters per line
 - -t --truncate Truncate long texts with
 
-How does it work: 
+How it works: 
 
 - width < truncate: wrapping the text AND truncating it when its length > truncate
 - width >= truncate: ignoring width, just truncating the text
