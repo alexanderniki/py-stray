@@ -4,6 +4,8 @@ import random
 import argparse
 import textwrap
 
+from text_tools import *
+
 
 def main():
     """
@@ -34,12 +36,17 @@ def main():
     # 1. Обрезаем, если включён truncate и исходная строка длиннее лимита
     if args.truncate > 0 and original_len > args.truncate:
         quote = quote[:args.truncate - 1] + "…"
+        #quote = truncate(quote, args.truncate)
 
     # 2. Делаем перенос строк, если включён width и он строго меньше truncate
     #    (если width >= truncate, перенос игнорируется по условию)
     if args.width > 0:
-        if args.truncate == 0 or args.width < args.truncate:
+        #if args.truncate == 0 or args.width < args.truncate:
+        if args.width < args.truncate:
             quote = textwrap.fill(quote, width=args.width, break_long_words=False)
+            #quote = wrap(quote, args.width)
+
+    #format_line(quote, args.width, args.truncate)
 
     print(quote, end="")
 

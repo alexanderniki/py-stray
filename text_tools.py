@@ -29,15 +29,17 @@ def wrap(line: str, width: int) -> str:
             (str): Wrapped line
     """
 
-    if width > 0:
-        result: str = textwrap.fill(line, width=width, break_long_words=False)
+    result: str = ""
+
+    if width > 0 and len(line) > width:
+        result = textwrap.fill(line, width=width, break_long_words=False)
     else:
         result = ""
 
     return result
 
 
-def truncate(line: str, limit: int, truncate_char: str = "…") -> str:
+def truncate(line: str, limit: int, truncate_char: str="…") -> str:
     """
     Truncates a line
 
@@ -50,8 +52,10 @@ def truncate(line: str, limit: int, truncate_char: str = "…") -> str:
             (str): Truncated line
     """
 
+    result: str = ""
+
     if limit > 0 and len(line) > limit:
-        result: str = line[:limit - 1] + truncate_char
+        result = line[:limit - 1] + truncate_char
     else:
         result = ""
 
@@ -71,14 +75,13 @@ def format_line(line: str, wrap_width: int, truncate_limit: int) -> str:
             (str): Formatted line
     """
 
-    result: str = line
+    result: str = ""
 
     if wrap_width < truncate_limit:
-        result = wrap(result, wrap_width)
-        if len(line) > truncate_limit:
-            result = truncate(result, truncate_limit)
+        result = wrap(line, wrap_width)  # Wrap first and then truncate
+        result = truncate(result, truncate_limit)
     else:
-        if wrap_width >= truncate_limit:
+        if wrap_width >= truncate_limit:  # Ignoring wrap, just truncating
             result = truncate(result, truncate_limit)
 
     return result
